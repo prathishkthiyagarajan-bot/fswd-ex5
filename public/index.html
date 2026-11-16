@@ -16,12 +16,12 @@
 
         <form id="login-form">
             <label>Email:</label>
-            <input type="email" id="email" required>
-            <button>Login</button>
+            <input type="email" id="email" required placeholder="Enter registered email">
+            <button type="submit">Login</button>
         </form>
 
         <p>Don't have an account?
-            <button id="show-registration">Create User</button>
+            <button type="button" id="show-registration">Create User</button>
         </p>
     </div>
 
@@ -31,13 +31,13 @@
 
         <form id="registration-form">
             <label>Username:</label>
-            <input id="username" required>
+            <input id="username" required placeholder="Enter username">
 
             <label>Email:</label>
-            <input type="email" id="reg-email" required>
+            <input type="email" id="reg-email" required placeholder="Enter email">
 
             <label>Roll Number:</label>
-            <input id="roll-number" required>
+            <input id="roll-number" required placeholder="Enter roll number">
 
             <label>Initial Casual Leave:</label>
             <input type="number" id="casual-leave" value="0">
@@ -45,11 +45,11 @@
             <label>Initial Medical Leave:</label>
             <input type="number" id="medical-leave" value="0">
 
-            <button>Register</button>
+            <button type="submit">Register</button>
         </form>
 
         <p>Already have an account?
-            <button id="show-login">Login</button>
+            <button type="button" id="show-login">Back to Login</button>
         </p>
 
         <div id="registration-response"></div>
@@ -60,20 +60,20 @@
         <h2>Leave Balance</h2>
 
         <p>
-            Welcome, <span id="username-display"></span>
+            Welcome, <strong id="username-display"></strong>
             (Roll Number: <span id="roll-number-display"></span>)
         </p>
 
         <p>Casual Leave:
-            <span id="casual-leave-display">Loading...</span>
+            <strong id="casual-leave-display">Loading...</strong>
         </p>
 
         <p>Medical Leave:
-            <span id="medical-leave-display">Loading...</span>
+            <strong id="medical-leave-display">Loading...</strong>
         </p>
 
-        <button id="refresh-balance">Refresh Balance</button>
-        <button id="logout-button">Logout</button>
+        <button type="button" id="refresh-balance">Refresh Balance</button>
+        <button type="button" id="logout-button">Logout</button>
     </div>
 
     <!-- Apply Leave -->
@@ -89,9 +89,9 @@
             </select>
 
             <label>Number of Days:</label>
-            <input type="number" id="leave-days" min="1" required>
+            <input type="number" id="leave-days" min="1" required placeholder="Number of days">
 
-            <button>Apply Leave</button>
+            <button type="submit">Apply Leave</button>
         </form>
     </div>
 

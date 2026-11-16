@@ -2,6 +2,13 @@ let userId;
 
 const $ = id => document.getElementById(id);
 
+// If running directly on Render, use relative "/api"
+// If running on Vercel, localhost, or file:///, route directly to the live Render backend
+const API_BASE =
+    window.location.origin.includes("onrender.com")
+        ? "/api"
+        : "https://fswd-ex5.onrender.com/api";
+
 async function registerUser(e) {
     e.preventDefault();
 
@@ -14,7 +21,7 @@ async function registerUser(e) {
             medicalLeave: +$("medical-leave").value
         };
 
-        const res = await fetch("/api/register", {
+        const res = await fetch(`${API_BASE}/register`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
@@ -34,7 +41,8 @@ async function registerUser(e) {
         }
     } catch (err) {
         console.error("Register Error:", err);
-        $("registration-response").innerText = "Network error. Please make sure you are accessing the app from your live Render URL (https://...), not by double-clicking index.html.";
+        $("registration-response").innerText = "Network error: " + err.message;
+        alert("Network error: " + err.message);
     }
 }
 
@@ -44,7 +52,7 @@ async function loginUser(e) {
     try {
         const email = $("email").value.trim();
 
-        const res = await fetch("/api/login", {
+        const res = await fetch(`${API_BASE}/login`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ email })
@@ -72,14 +80,15 @@ async function loginUser(e) {
         $("response-message").innerText = "";
     } catch (err) {
         console.error("Login Error:", err);
-        $("response-message").innerText = "Network error. Please make sure you are accessing the app from your live Render URL (https://...), not by double-clicking index.html.";
+        $("response-message").innerText = "Network error: " + err.message;
+        alert("Network error: " + err.message);
     }
 }
 
 async function refreshBalance() {
     try {
         if (!userId) return;
-        const res = await fetch(`/api/leave-balance/${userId}`);
+        const res = await fetch(`${API_BASE}/leave-balance/${userId}`);
         const data = await res.json();
 
         $("casual-leave-display").innerText = data.casualLeave;
@@ -98,7 +107,7 @@ async function applyLeave(e) {
             days: $("leave-days").value
         };
 
-        const res = await fetch(`/api/apply-leave/${userId}`, {
+        const res = await fetch(`${API_BASE}/apply-leave/${userId}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
@@ -118,7 +127,8 @@ async function applyLeave(e) {
         }
     } catch (err) {
         console.error("Apply Leave Error:", err);
-        $("response-message").innerText = "Network error while applying leave.";
+        $("response-message").innerText = "Network error while applying leave: " + err.message;
+        alert("Network error: " + err.message);
     }
 }
 
